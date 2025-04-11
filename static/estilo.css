@@ -125,7 +125,7 @@ body#home {
 .card {
     display: flex;
     width: 400px;
-    height: 200px;
+    height: 250px;
     background-color: #ffffff;
     border-radius: 12px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -141,7 +141,7 @@ body#home {
 
 .cover {
     width: 200px; /* quadrado */
-    height: 200px;
+    height: 250px;
     object-fit: cover;
     flex-shrink: 0; /* Não deixa a imagem encolher */
 }
@@ -165,4 +165,21 @@ body#home {
 .card-content p {
     font-size: 14px;
     color: #666;
+}
+
+.excluir_usuario{
+    margin-top: 200px;
+    margin-left: 5%;
+    width: 100%;
+    display: flex;
+}
+
+.excluir_usuario input{
+    background-color: #f14483;
+    border-radius: 4px;
+    color: #e4f5f9;
+}
+
+.deletar button{
+    margin-right: 50px;
 }

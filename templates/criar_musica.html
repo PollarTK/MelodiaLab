@@ -9,29 +9,27 @@
     <!-- Adicionar o ícone (favicon) do site -->
     <link rel="shortcut icon" href="logo.png" type="image/x-icon">
 </head>
-<body class="cadastro">
+<body class="nova-musica">
     <div class="caixa-de-login">
-        <h2>Crie sua conta</h2>
+        <h2>Crie Uma Nova Música</h2>
         <!-- ADICIONAR O FORM AO INICIO -->
-        <form action="/cadastro" method="POST" onsubmit="return verificarSenhas()">
-            <p>Usuário</p>
-            <input type="text" id="nome" name="nome" required placeholder="Digite seu usuário">
+        <form action="/criar_musica" method="POST" onsubmit="return verificarSenhas()">
+            <p>Títudo</p>
+            <input type="text" id="nome" name="titulo" required placeholder="Digite o nome da música">
 
-            <p>E-mail</p>
-            <input type="text" id="email" name="email" required placeholder="Digite seu usuário">
+            <p>Qual a Letra da Música?</p>
+            <textarea id="name" name="conteudo" rows="5" cols="33"></textarea>
 
-            <p>Senha</p>
-            <input type="password" id="senha" name="senha" required placeholder="Digite sua senha">
-
-            <p>Confirme sua senha</p>
-            <input type="password" id="senhaconfirmacao" name="senhaconf": placeholder="Digite sua senha">
+            <p>Status da Música</p>
+            <input type="text" id="text" name="status" required placeholder="em composição, em gravação ou concluida?">
+            <br>
             <br>
             <br>
             
             <div class="botoes">
                 <!-- <a href="">Criar conta</a> -->
                 <!-- Mudar o a para um button -->
-                <button type="submit">Criar conta</button>
+                <button type="submit">Salvar</button>
             </div>
             <!-- FECHAR O FORMS AO FIM -->
         </form>
