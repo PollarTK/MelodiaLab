@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Músicas</title>
-    <link rel="stylesheet" href="static/estilo.css">
+    <link rel="stylesheet" href="/static/estilo.css">
 </head>
 <body>
-    <h1>Editar musica</h1> 
     <div class="caixa-de-login">
+        <h1>Editar musica</h1> 
         <form action="/musicas/editar/{{ id }}" method="POST">
 
             <input value="{{musica[0]}}" type="text" name="titulo" placeholder="Título" required>
