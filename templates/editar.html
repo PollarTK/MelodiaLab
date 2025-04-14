@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Músicas</title>
+    <link rel="stylesheet" href="static/estilo.css">
+</head>
+<body>
+    <h1>Editar musica</h1> 
+    <div class="caixa-de-login">
+        <form action="/musicas/editar/{{ id }}" method="POST">
+
+            <input value="{{musica[0]}}" type="text" name="titulo" placeholder="Título" required>
+            <hr>
+
+            <input value="{{musica[1]}}" type="text" name="autor"placeholder="Autor" required>
+            <hr>
+
+            <textarea name="conteudo" rows="5" cols="33" required>{{musica[3]}}</textarea>
+            <hr>
+
+            <input value="{{musica[2]}}" type="text" name="status" placeholder="Status" required>
+            <hr>
+            <hr>
+
+        <div class="botoes">
+            <button type="submit" class="btn">Confirmar edição</button>
+        </div>
+        </form>
+    </div>
+</body>
+</html>

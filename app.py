@@ -21,7 +21,11 @@ def login():
 
 @app.route('/home')
 def home():
-    return render_template('home.html')
+    if 'usuario' not in session:
+        return redirect(url_for('login'))
+    lista_musicas = database.buscar_musicas(session['usuario'])
+
+    return render_template('home.html', musicas=lista_musicas)
 
 @app.route('/cadastro', methods=["GET","POST"]) #rota para a página de login
 def cadastro():
@@ -42,7 +46,7 @@ def criar_musica():
     if request.method == "POST":
         form = request.form
 
-        if database.criar_musica(form['titulo'],form['conteudo'],form['status'], session['usuario']) == True:
+        if database.criar_musica(form['titulo'],form['autor'],form['conteudo'],form['status'], session['usuario']) == True:
             return redirect(url_for('home'))
         
         else:
@@ -50,6 +54,22 @@ def criar_musica():
 
     else:
         return render_template('criar_musica.html')
+    
+@app.route('/musicas/editar/<int:id>', methods=["GET", "POST"])
+def editar_musica(id):
+    # pega o e-mail da sessão para verificar se é o dono da tarefa
+    email = session['usuario']
+    if (request.method == "GET"):
+        conteudo_musica = database.buscar_conteudo_musica(id)
+        return render_template('editar.html', musica=conteudo_musica, id=id)
+    if (request.method == "POST"):
+        form = request.form
+        novo_titulo = form['titulo']
+        novo_autor = form['autor']
+        novo_status = form['status']
+        novo_conteudo = form['conteudo']
+        database.editar_musica(novo_titulo,novo_autor,novo_status,novo_conteudo, id)
+        return redirect(url_for('home'))
     
 @app.route('/excluir_usuario')
 def excluir_usuario():

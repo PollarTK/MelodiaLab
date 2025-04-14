@@ -14,8 +14,11 @@
         <h2>Crie Uma Nova Música</h2>
         <!-- ADICIONAR O FORM AO INICIO -->
         <form action="/criar_musica" method="POST" onsubmit="return verificarSenhas()">
-            <p>Títudo</p>
+            <p>Títudo</p> 
             <input type="text" id="nome" name="titulo" required placeholder="Digite o nome da música">
+
+            <p>Autor</p>
+            <input type="text" name="autor" required placeholder="Digite o nome do Autor">
 
             <p>Qual a Letra da Música?</p>
             <textarea id="name" name="conteudo" rows="5" cols="33"></textarea>

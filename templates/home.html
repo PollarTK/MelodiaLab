@@ -18,32 +18,24 @@
         <h2>Minhas Criações</h2>
         <div class="cards-container">
           <!-- Card de projeto musical -->
+          {% for musica in musicas %}
+          <input type="button"onclick="window.location.href='/musicas/editar/{{ musica[0] }}'" value="Editar">
           <div class="card">
             <img src="/static/img/capa1.jpeg" alt="Capa do Projeto" class="cover">
             <div class="card-content">
-              <h3>Nome da Música</h3>
-              <p>Artista: Seu Nome</p>
-              <p>Status: Em composição</p>
-              <p>Letra: Viciado em adrenalina, só sinto amor quando a gente briga...</p>
-              <button type="submit" class="deletar" onclick="window.location.href='/musicas/excluir/'"> X </button>
+              {{ musica[1] }} 
+              <p>Artista: {{ musica[2] }}</p>
+              <p>Status: {{ musica[4] }}</p>
+              <p>Letra: {{ musica[3] }}</p>
+
+              <button type="submit" class="deletar" onclick="window.location.href='/musicas/excluir/{{ musica[0] }}'"> X </button>
             </div>
           </div>
-  
-          <div class="card">
-            <img src="/static/img/capa2.jpeg" alt="Capa do Projeto" class="cover">
-            <div class="card-content">
-              <h3>Outra Música</h3>
-              <p>Artista: Seu Nome</p>
-              <p>Status: Em gravação</p>
-              <p>Letra: Eu te levei para meu templo, vulnerável com meus sentimentos...</p>
-            </div>
-          </div>
-  
+          {% endfor %}
           <!-- Mais cards podem ser adicionados aqui -->
         </div>
       </section>
-      <div class="excluir_usuario">
-        <input type="button" onclick="window.location.href='/excluir_usuario'" value="Excluir usuário">
+      <div class="excluir_usuario"> <input type="button" onclick="window.location.href='/excluir_usuario'" value="Excluir usuário">
       </div>
 </body>
 
