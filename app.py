@@ -7,6 +7,7 @@ import database
 def index():
     return render_template('index.html')
 
+
 @app.route('/login', methods=["GET", "POST"]) #rota para a página de login
 def login():
     if request.method == "POST":
@@ -18,42 +19,39 @@ def login():
             return render_template('login.html')
     else:
         return render_template('login.html')
+    
 
 @app.route('/home')
 def home():
     if 'usuario' not in session:
         return redirect(url_for('login'))
     lista_musicas = database.buscar_musicas(session['usuario'])
-
     return render_template('home.html', musicas=lista_musicas)
+
 
 @app.route('/cadastro', methods=["GET","POST"]) #rota para a página de login
 def cadastro():
     if request.method == "POST":
         form = request.form
-
         if database.criar_usuario(form) == True:
             return render_template('login.html')
-        
         else:
             return "Ocorreu um erro ao cadastrar o Usuário"
-
     else:
         return render_template('cadastro.html')
+    
     
 @app.route('/criar_musica', methods=["GET","POST"]) #rota para a pagina de criação
 def criar_musica():
     if request.method == "POST":
         form = request.form
-
-        if database.criar_musica(form['titulo'],form['autor'],form['conteudo'],form['status'], session['usuario']) == True:
+        if database.criar_musica(form['titulo'],form['autor'],form['imagem'],form['conteudo'],form['status'], session['usuario']) == True:
             return redirect(url_for('home'))
-        
         else:
             pass
-
     else:
         return render_template('criar_musica.html')
+    
     
 @app.route('/musicas/editar/<int:id>', methods=["GET", "POST"])
 def editar_musica(id):
@@ -66,19 +64,26 @@ def editar_musica(id):
         form = request.form
         novo_titulo = form['titulo']
         novo_autor = form['autor']
+        nova_imagem = form['imagem']
         novo_status = form['status']
         novo_conteudo = form['conteudo']
-        database.editar_musica(novo_titulo,novo_autor,novo_status,novo_conteudo, id)
+        database.editar_musica(novo_titulo,novo_autor,nova_imagem,novo_conteudo,novo_status, id)
         return redirect(url_for('home'))
+    
+@app.route('/loggout')
+def loggout():
+    session.pop
+    return redirect(url_for('login'))
+
     
 @app.route('/excluir_usuario')
 def excluir_usuario():
     email = session['usuario']
-
     if database.excluir_usuario(email):
         return redirect(url_for('cadastro'))
     else:
         return "Ocorreu um erro ao excluir o usuário"
+    
     
 @app.route('/musicas/excluir/<int:id>', methods=["GET"])
 def excluir_musica(id):

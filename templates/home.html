@@ -19,24 +19,35 @@
         <div class="cards-container">
           <!-- Card de projeto musical -->
           {% for musica in musicas %}
-          <input type="button"onclick="window.location.href='/musicas/editar/{{ musica[0] }}'" value="Editar">
+          <div class="botoes">
+            <a href="/musicas/editar/{{ musica[0] }}"> Editar</a>
+          </div>
+          
           <div class="card">
-            <img src="/static/img/capa1.jpeg" alt="Capa do Projeto" class="cover">
+
+            {% if musica[3] is not none and musica[3] != '' %}
+                <img src="{{ musica[3] }}"class="cover" alt="Imagem">
+            {% else %}
+                <img src="{{ url_for('static', filename='img/capa2.jpeg') }}" class="cover" alt="Imagem">
+            {% endif %}
+            <button type="submit" class="deletar" onclick="window.location.href='/musicas/excluir/{{ musica[0] }}'">🗑️</button>
+
             <div class="card-content">
+
               {{ musica[1] }} 
               <p>Artista: {{ musica[2] }}</p>
-              <p>Status: {{ musica[4] }}</p>
-              <p>Letra: {{ musica[3] }}</p>
-
-              <button type="submit" class="deletar" onclick="window.location.href='/musicas/excluir/{{ musica[0] }}'"> X </button>
+              <p>Letra: {{ musica[4] }}</p>
+              <p>Status: {{ musica[5] }}</p>
             </div>
+
           </div>
           {% endfor %}
-          <!-- Mais cards podem ser adicionados aqui -->
+          
         </div>
       </section>
       <div class="excluir_usuario"> <input type="button" onclick="window.location.href='/excluir_usuario'" value="Excluir usuário">
-      </div>
+        <input type="button" onclick="window.location.href='/loggout'" value="loggout">
+          
 </body>
 
 </html>

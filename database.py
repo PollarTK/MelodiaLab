@@ -11,7 +11,7 @@ def criar_tabelas():
     cursor.execute('''create table if not exists usuarios
                    (email text primary key, nome text, senha text)''' )
     
-    cursor.execute('''create table if not exists musicas (id integer primary key, titulo text, autor text, conteudo text, status text, email_usuario text,
+    cursor.execute('''create table if not exists musicas (id integer primary key, titulo text, autor text, imagem, conteudo text, status text, email_usuario text,
              FOREIGN KEY(email_usuario) REFERENCES usuarios(email))''')
 
     conexao.commit()
@@ -55,31 +55,31 @@ def fazer_login(formulario):
         except:
             return False
         
-def criar_musica(titulo,autor,conteudo,status,email):
+def criar_musica(titulo,autor,imagem,conteudo,status,email):
     conexao = conectar_banco()
     cursor = conexao.cursor()
-    cursor.execute(''' INSERT INTO musicas (titulo, autor, conteudo, status, email_usuario)
-                   VALUES (?,?,?,?,?)''', 
-                   (titulo,autor,conteudo,status, email))
+    cursor.execute(''' INSERT INTO musicas (titulo, autor, imagem, conteudo, status, email_usuario)
+                   VALUES (?,?,?,?,?,?)''', 
+                   (titulo,autor,imagem,conteudo,status, email))
     conexao.commit()
     return True
 
 def buscar_musicas(email):
     conexao = conectar_banco()
     cursor = conexao.cursor()
-    cursor.execute('''SELECT id,titulo,autor, conteudo, status
+    cursor.execute('''SELECT id,titulo,autor, imagem, conteudo, status
                    FROM musicas WHERE email_usuario=?''', 
                    (email,))
     conexao.commit()
     musicas = cursor.fetchall() # Busca todos os resultados do select e guarda em "musicas"
     return musicas
 
-def editar_musica(novo_titulo,novo_autor,novo_conteudo,novo_status, id):
+def editar_musica(novo_titulo,novo_autor,nova_imagem,novo_conteudo,novo_status, id):
     # Conecta com o banco
     conexao = conectar_banco()
     cursor = conexao.cursor()
     #Executa o comando
-    cursor.execute('''UPDATE musicas SET titulo=?, autor=?, conteudo=?, status=?  WHERE id=?''', (novo_titulo,novo_autor,novo_conteudo,novo_status, id))
+    cursor.execute('''UPDATE musicas SET titulo=?, autor=?, imagem=?, conteudo=?, status=?  WHERE id=?''', (novo_titulo,novo_autor,nova_imagem,novo_conteudo,novo_status, id))
     conexao.commit()
     return True
 
@@ -88,10 +88,9 @@ def buscar_conteudo_musica(id):
     conexao = conectar_banco()
     cursor = conexao.cursor()
     #Executa a query do conteúdo
-    cursor.execute('''SELECT titulo,autor,conteudo,status FROM musicas WHERE id=?''', (id,))
+    cursor.execute('''SELECT titulo,autor,imagem,conteudo,status FROM musicas WHERE id=?''', (id,))
     conexao.commit()
     conteudo = cursor.fetchone()
-
     #Retorna o conteudo
     return(conteudo)
 
